@@ -1,20 +1,40 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# About this project
+This repository showcases a scenario of services integration in Azure where logs placed in a Blob Storage container gets processed into a Event Hub leveraging Event Grid and Functions.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Architecture 
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+![Architecture](Azure-Services-Integration.png "Azure Services Integration Architecture")
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Usage
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+### Create the infrastructure using ```terraform```
+
+```
+$ cd terraform
+$ az login
+$ terraform init
+$ terraform plan -var 'services-integration-rg=<resource_group_name>'
+$ terraform apply
+```
+
+### Deploy the services-integration ```Function```
+
+```
+cd functions/service/integration
+func azure functionapp publish siem-integration-<suffix>
+```
+
+### Upload fake log files to the source-blobs container
+
+```
+$ az storage blob upload-batch --account-name <storage-account-name> -d source-blobs -s log-files
+```
+
+### Watch the log files entries being added as events in the destination Event Hub
+
+```
+$ export CONNECTION_STR="<Event Hub Connection String>"
+$ export EVENTHUB_NAME=integration-hub
+$ pip install azure-eventhub
+$ python event-hub-consumer.py
+```
