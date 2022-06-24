@@ -20,7 +20,7 @@ $ terraform apply
 ### Deploy the services-integration ```Function```
 
 ```
-cd functions/service/integration
+cd functions/services-integration
 func azure functionapp publish siem-integration-<suffix>
 ```
 
@@ -33,8 +33,8 @@ $ az storage blob upload-batch --account-name <storage-account-name> -d source-b
 ### Watch the log files entries being added as events in the destination Event Hub
 
 ```
-$ export CONNECTION_STR="<Event Hub Connection String>"
-$ export EVENTHUB_NAME=integration-hub
+$ export EVENT_HUB_CONN_STR="<Event Hub Connection String>"
+$ export EVENT_HUB_NAME=integration-hub
 $ pip install azure-eventhub
 $ python event-hub-consumer.py
 ```

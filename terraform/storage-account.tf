@@ -5,7 +5,7 @@ resource "random_string" "storage-account" {
 }
 
 resource "azurerm_storage_account" "services-integration" {
-  name                     = "servicesintegration${random_string.storage-account.result}"
+  name                     = "servicesint${random_string.storage-account.result}"
   resource_group_name      = data.azurerm_resource_group.services-integration.name
   location                 = data.azurerm_resource_group.services-integration.location
   account_tier             = "Standard"
@@ -14,7 +14,7 @@ resource "azurerm_storage_account" "services-integration" {
 }
 
 resource "azurerm_storage_account" "services-integration-function" {
-  name                     = "servicesintfunction${random_string.storage-account.result}"
+  name                     = "servintfunction${random_string.storage-account.result}"
   resource_group_name      = data.azurerm_resource_group.services-integration.name
   location                 = data.azurerm_resource_group.services-integration.location
   account_tier             = "Standard"
