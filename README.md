@@ -1,5 +1,5 @@
 # About this project
-This repository showcases a scenario of services integration in Azure where logs placed in a Blob Storage container gets processed into a Event Hub leveraging Event Grid and Functions.
+This repository showcases a scenario of services integration in Azure where logs placed in a Blob Storage container gets processed into an Event Hub leveraging both Event Grid and Functions.
 
 ## Architecture 
 
